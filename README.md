@@ -10,9 +10,9 @@ A nano which interfaces to most of the switches to drive the LCD display and dec
 We need to because the switches have interrupts and the LEDs don't like being interrupted: the timing is critical
 
 ## TODO
-Finish this readme
-Update the fzz doc to reflect reality
-Fix the LCD panel
-Fix the fire pattern
-Write more patterns
-Get a better PSU: the current one drops to 3.6V on the 5V rail when all the lights are on
+* Finish this readme
+* Update the fzz doc to reflect reality
+* Fix the LCD panel
+* Fix the fire pattern
+* Write more patterns
+* Get a better PSU: the current one drops to 3.6V on the 5V rail when all the lights are on
