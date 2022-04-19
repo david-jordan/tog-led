@@ -99,19 +99,21 @@ void loop() {
 // Communicate the current mode state to the slave arduino
 void setModeOutput()
 {
-  Serial.print("Bit MODE_PIN0: ");
-  Serial.print(bitRead(currentMode,0));
-  Serial.print("    Bit MODE_PIN1: ");
-  Serial.print(bitRead(currentMode,1));
-  Serial.print("   Bit MODE_PIN2: ");
-  Serial.print(bitRead(currentMode,2));
+  if(debug){
+    Serial.print("Raw bits MODE_PIN0: ");
+    Serial.print(bitRead(currentMode,0));
+    Serial.print("  MODE_PIN1: ");
+    Serial.print(bitRead(currentMode,1));
+    Serial.print("  MODE_PIN2: ");
+    Serial.print(bitRead(currentMode,2));
+  }
     digitalWrite(MODE_PIN0, bitRead(currentMode,0));
     digitalWrite(MODE_PIN1, bitRead(currentMode,1));
     digitalWrite(MODE_PIN2, bitRead(currentMode,2));
 }
 
 
-
+// Interrupt with debounce
 void changeModeInterrupt()
 {
   noInterrupts();
@@ -128,6 +130,7 @@ void changeModeInterrupt()
   interrupts();
 }
 
+// TODO implement in LED driver
 void duckMode()
 {
   if(DEBUG){Serial.println("Duck mode");}
