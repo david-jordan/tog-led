@@ -7,7 +7,7 @@
 There are 2 arduinos
 A nano which interfaces to most of the switches to drive the LCD display and decide which mode should be used, and a mega which drives LEDs according to the current mode
 
-We need to because the switches have interrupts and the LEDs don't like being interrupted: the timing is critical
+We need two because the switches have interrupts and the LEDs don't like being interrupted: the timing is critical
 
 ## TODO
 * Finish this readme
