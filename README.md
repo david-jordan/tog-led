@@ -16,3 +16,4 @@ We need two because the switches have interrupts and the LEDs don't like being i
 * Fix the fire pattern
 * Write more patterns
 * Get a better PSU: the current one drops to 3.6V on the 5V rail when all the lights are on
+* Drive the brightness from a knob on the front: currently hard coded to 255 for the "all" mode and not used in the other modes

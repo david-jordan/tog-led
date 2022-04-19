@@ -69,49 +69,30 @@ void setup() {
 }
 
 void loop() {
-
   int currentMode = getMode(); // Find out which mode we're in
   delay(50);
-  if(currentMode==0)
-  {
-    modeOff();
-  }
-  else if(currentMode==1)
-  {
-    modeAll();
-  }
-  else if(currentMode==2)
-  {
-    modeSweep();
-  }
-  else if(currentMode==3)
-  {
-    modePalette();
-  }
-  else if(currentMode==4)
-  {
-    modeFire();
-  }
-  else{Serial.println("unknown mode");}
-  
+  if(currentMode==0)  { modeOff(); }
+  else if(currentMode==1)  { modeAll(); }
+  else if(currentMode==2) { modeSweep(); }
+  else if(currentMode==3) { modePalette(); }
+  else if(currentMode==4) { modeFire();  }
+  else{if(debug){Serial.println("unknown mode");}}
 }
 
 // Find out which mode the controller says
 // 3 PINS -> 8 MODES SUPPORTED
-int getMode()
-{
+int getMode() {
   unsigned int retVal=0;
 
   if(debug){
     Serial.println("entering getMode");
-    Serial.print("Bits: ");
-    Serial.print("   0: ");Serial.print(digitalRead(MODE_PIN0), DEC);
-    
-    Serial.print("   1: ");Serial.print(digitalRead(MODE_PIN1), DEC);
+    Serial.print("Raw bits ");
+    Serial.print("  0: ");Serial.print(digitalRead(MODE_PIN0), DEC);
+    Serial.print("  1: ");Serial.print(digitalRead(MODE_PIN1), DEC);
     Serial.print("  2: ");Serial.print(digitalRead(MODE_PIN2), DEC);
   }
-  // cast the pins to an int and then extract the value from a String[]
-
+  
+  // Convert the binary pin values to an int
   retVal = digitalRead(MODE_PIN0) +  (digitalRead(MODE_PIN1)*2) + (digitalRead(MODE_PIN2)*4);
   
   if(debug){Serial.print("  mode: ");Serial.println(retVal,DEC);}
@@ -121,23 +102,20 @@ int getMode()
 
 
 //////////
-// Drive the leds according to the mode
+// Methods for drive the leds according to the mode
 //////////
 
 // Turn the LEDs off
-void modeOff()
-{
+void modeOff() {
   if(debug){Serial.println("entering mode off");}
   for (int i = 0; i <= NUM_LEDS; i++) {
     leds[i] = CRGB (0,0,0);
-    
   }
   FastLED.show();
 }
 
 // Turn on all of the LEDs according to their brightness and rgb values
-void modeAll()
-{
+void modeAll() {
   if(debug){Serial.println("entering mode rgbw()");}
  // readRgbw();
   int brightness = getBrightness();
@@ -152,7 +130,6 @@ void modeAll()
   }
   FastLED.show();
   delay(refreshDelay);
-  
 }
 
 void modeSweep()
@@ -169,7 +146,7 @@ void modeSweep()
 }
 
 
-// From fastLed examples
+// From fastLed examples. TODO: Figure out why this mode doesn't work
 void modeFire()
 {
   if(debug){Serial.println("entering mode fire");}
@@ -207,7 +184,6 @@ void modeFire()
       }
       leds[pixelnumber] = color;
     }
- 
 }
 
 
@@ -348,21 +324,20 @@ const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM =
 
 
 // Divide all of these by 4 to covert analogue 0-1023 -> 0-254
-int getBrightness()
-{ 
+// TODO: Drive the brightness
+int getBrightness() { 
   //return (analogRead(BRIGHT_PIN)/4);
   return 255;
 }
 
-int getRed()
-{
+int getRed() {
   return analogRead(RED_PIN)/4;
 }
-int getGreen()
-{
+
+int getGreen() {
   return analogRead(GREEN_PIN)/4;
 }
-int getBlue()
-{
+
+int getBlue() {
   return analogRead(BLUE_PIN)/4;
 }
